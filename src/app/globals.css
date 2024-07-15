@@ -2,32 +2,93 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.dragging {
+  cursor: grabbing;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+
+@keyframes slide-in-from-left {
+  from {
+    translate: -100vw 0;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@keyframes slide-in-from-right {
+  from {
+    translate: 100vw 0;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@keyframes slide-out-to-left {
+  to {
+    translate: -100vw 0;
+  }
+}
+
+@keyframes slide-out-to-right {
+  to {
+    translate: 100vw 0;
+  }
+}
+
+@keyframes scale-up {
+  from {
+    scale: 0;
+  }
+}
+
+@keyframes scale-down {
+  to {
+    scale: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+::view-transition-group(*) {
+  animation-duration: 300ms;
+  animation-timing-function: ease-out;
+
+}
+
+:root {
+  view-transition-name: none;
+}
+
+article {
+  view-transition-name: content;
+}
+
+.pagination {
+  view-transition-name: pagination;
+}
+
+html:active-view-transition-type(forwards) {
+  &::view-transition-old(content) {
+    animation-name: slide-out-to-left;
+  }
+
+  &::view-transition-new(content) {
+    animation-name: slide-in-from-right;
+  }
+}
+
+html:active-view-transition-type(backwards) {
+  &::view-transition-old(content) {
+    animation-name: slide-out-to-right;
+  }
+
+  &::view-transition-new(content) {
+    animation-name: slide-in-from-left;
   }
 }
