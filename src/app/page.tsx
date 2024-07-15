@@ -1,9 +1,5 @@
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function () {
-	return (
-		<div className="p-4">
-			<Link href="/1">first page</Link>
-		</div>
-	);
+	return redirect("/1");
 }

@@ -1,7 +1,16 @@
-export default function ({ params }: { params: { index: string } }) {
+import { delay } from "es-toolkit";
+import { Suspense } from "react";
+import { Spinner } from "./_components/spinner";
+
+export default async function ({ params }: { params: { index: string } }) {
 	return (
 		<div>
-			<h1 className="text-4xl font-extrabold mb-8">Page {params.index}</h1>
+			<h1 className="flex items-center gap-2 text-4xl font-extrabold mb-8">
+				<span>Page {params.index}</span>
+				<Suspense fallback={<Spinner className="size-4" />}>
+					<ExpensiveComponent />
+				</Suspense>
+			</h1>
 			<p className="leading-relaxed font-light">
 				Tempor Lorem irure voluptate laborum fugiat occaecat consectetur. Tempor
 				officia dolor aliqua eu est Lorem deserunt esse ullamco. Ex ullamco
@@ -24,3 +33,8 @@ export default function ({ params }: { params: { index: string } }) {
 		</div>
 	);
 }
+
+const ExpensiveComponent = async () => {
+	await delay(1000);
+	return null;
+};

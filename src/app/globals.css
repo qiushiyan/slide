@@ -6,6 +6,9 @@
   cursor: grabbing;
 }
 
+body {
+  overflow-x: hidden;
+}
 
 @keyframes slide-in-from-left {
   from {
