@@ -59,6 +59,7 @@ export function Link({ viewTransitionTypes = [], ...props }: LinkProps) {
 				e.preventDefault();
 
 				const navigate = replace ? router.replace : router.push;
+				// @ts-ignore
 				navigate(as || href, { scroll: scroll ?? true, viewTransitionTypes });
 			}
 		},
