@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils";
 import { useTransitionRouter } from "@/lib/view-transitions/use-transition-router";
-import { debounce } from "es-toolkit";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const minSwipeDistance = 50;

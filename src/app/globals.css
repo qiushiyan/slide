@@ -72,10 +72,6 @@ article {
   view-transition-name: content;
 }
 
-.pagination {
-  view-transition-name: pagination;
-}
-
 html:active-view-transition-type(forwards) {
   &::view-transition-old(content) {
     animation-name: slide-out-to-left;

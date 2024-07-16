@@ -29,7 +29,7 @@ export default async function ({ params }: { params: { index: string } }) {
 				aliquip sit consequat. Sint ad elit minim eiusmod irure labore quis ad
 				incididunt dolore commodo cillum.
 			</p>
-			<Suspense fallback={<Spinner className="size-4" />}>
+			<Suspense fallback={<Spinner className="size-4 mt-4" />}>
 				<ExpensiveComponent />
 			</Suspense>
 		</div>
@@ -38,5 +38,5 @@ export default async function ({ params }: { params: { index: string } }) {
 
 const ExpensiveComponent = async () => {
 	await delay(1000);
-	return <p className="text-sm"> expensive content loaded</p>;
+	return <p className="text-sm mt-4"> expensive content loaded</p>;
 };
