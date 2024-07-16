@@ -1,5 +1,6 @@
 "use client";
 
+import { firstIndex, lastIndex } from "@/lib/pages";
 import { cn } from "@/lib/utils";
 import { Link } from "@/lib/view-transitions/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -12,8 +13,8 @@ type Props = {
 export const NavigationButton = ({ direction, index }: Props) => {
 	const type = direction === "left" ? "backwards" : "forwards";
 	const disabled =
-		(index === 1 && direction === "left") ||
-		(index === 5 && direction === "right");
+		(index === firstIndex && direction === "left") ||
+		(index === lastIndex && direction === "right");
 
 	return (
 		<Link

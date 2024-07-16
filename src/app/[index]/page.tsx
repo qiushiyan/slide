@@ -7,9 +7,6 @@ export default async function ({ params }: { params: { index: string } }) {
 		<div>
 			<h1 className="flex items-center gap-2 text-4xl font-extrabold mb-8">
 				<span>Page {params.index}</span>
-				<Suspense fallback={<Spinner className="size-4" />}>
-					<ExpensiveComponent />
-				</Suspense>
 			</h1>
 			<p className="leading-relaxed font-light">
 				Tempor Lorem irure voluptate laborum fugiat occaecat consectetur. Tempor
@@ -30,11 +27,14 @@ export default async function ({ params }: { params: { index: string } }) {
 				aliquip sit consequat. Sint ad elit minim eiusmod irure labore quis ad
 				incididunt dolore commodo cillum.
 			</p>
+			<Suspense fallback={<Spinner className="size-4" />}>
+				<ExpensiveComponent />
+			</Suspense>
 		</div>
 	);
 }
 
 const ExpensiveComponent = async () => {
 	await delay(1000);
-	return null;
+	return <p className="text-sm"> expensive content loaded</p>;
 };
