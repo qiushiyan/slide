@@ -2,6 +2,8 @@ import { delay } from "es-toolkit";
 import { Suspense } from "react";
 import { Spinner } from "./_components/spinner";
 
+export const dynamic = "force-dynamic";
+
 export default async function ({ params }: { params: { index: string } }) {
 	return (
 		<div>
