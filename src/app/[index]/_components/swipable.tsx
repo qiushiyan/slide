@@ -1,10 +1,12 @@
 "use client";
 
+import { useSwitch } from "@/lib/use-switch";
 import { cn } from "@/lib/utils";
 import { useTransitionRouter } from "@/lib/view-transitions/use-transition-router";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useShortcuts } from "./shortcuts";
 
-const minSwipeDistance = 50;
+const minSwipeDistance = 100;
 
 type Props = {
 	className?: string;
@@ -12,13 +14,15 @@ type Props = {
 	index: number;
 };
 
-export const Swipable = ({ children, index, className }: Props) => {
+export const SwipeControl = ({ children, index, className }: Props) => {
 	const touchStartX = useRef<number | null>(null);
 	const touchEndX = useRef<number | null>(null);
 	const touchStartY = useRef<number | null>(null);
 	const touchEndY = useRef<number | null>(null);
 	const router = useTransitionRouter();
 	const isSelecting = useRef(false);
+	const { forward, backward } = useSwitch({ index });
+	const disabled = useShortcuts({ index });
 
 	const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(
 		null,
@@ -114,12 +118,15 @@ export const Swipable = ({ children, index, className }: Props) => {
 				const distanceY = touchStartY.current - touchEndY.current;
 
 				if (handleSwipe(distanceX, distanceY)) {
-					router.push(`/${swipeDirection === "left" ? index + 1 : index - 1}`, {
-						viewTransitionTypes: [
-							"slide",
-							swipeDirection === "left" ? "forwards" : "backwards",
-						],
-					});
+					if (swipeDirection === "left") {
+						forward();
+						return;
+					}
+
+					if (swipeDirection === "right") {
+						backward();
+						return;
+					}
 				}
 			}
 			resetSwipeState();
@@ -145,6 +152,8 @@ export const Swipable = ({ children, index, className }: Props) => {
 				"transition-transform duration-300 ease-in-out",
 				swipeDirection === "left" && "translate-x-[-10%]",
 				swipeDirection === "right" && "translate-x-[10%]",
+				disabled === "left" && "bounce-right",
+				disabled === "right" && "bounce-left",
 			)}
 			onMouseDown={onMouseDown}
 			onMouseUp={onMouseUp}

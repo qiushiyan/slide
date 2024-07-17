@@ -1,5 +1,5 @@
 import { lastIndex, pages } from "@/lib/pages";
-import { Swipable } from "./_components/swipable";
+import { SwipeControl } from "./_components/swipable";
 import { NavigationButton } from "./navigation-button";
 
 export async function generateStaticParams() {
@@ -17,7 +17,10 @@ export default function ({
 			<aside className="flex justify-center items-center isolate">
 				<NavigationButton index={i} direction="left" />
 			</aside>
-			<Swipable index={i} className="grid grid-rows-[1fr_3rem] pb-4 lg:pb-6">
+			<SwipeControl
+				index={i}
+				className="grid grid-rows-[1fr_3rem] pb-4 lg:pb-6"
+			>
 				<article className="text-xl xl:text-2xl p-8 lg:p-16">
 					{children}
 				</article>
@@ -26,7 +29,7 @@ export default function ({
 						{i} / {lastIndex}
 					</p>
 				</footer>
-			</Swipable>
+			</SwipeControl>
 
 			<aside className="flex justify-center items-center isolate">
 				<NavigationButton index={i} direction="right" />
